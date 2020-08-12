@@ -1,0 +1,10 @@
+.botao-apagar{
+    height:60px;
+    width: 300px;
+    align-items: center;
+    font-size: 1.4em;
+    background-color: #babbc0;
+    color: rgb(32, 32, 32);
+    text-align: center;
+    
+}
