@@ -1,46 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
+import './App.css'
 
-class App extends React.Component{
-  constructor(){
-    super()
-    this.state={
-      numBin:"",
-      numDec:""
-    }
-  }
-  
-  pegaValor=(evento)=>{
-    this.setState({numBin:evento.target.value})   
-  }
-  converteValor=()=>{
-    var valorTotalDigitado=document.getElementById('tese').value
-    var vetorTotal=valorTotalDigitado.split('')
+const App=()=>{
+
+  const[numBin,setNumBin]=useState("")
+  const[numDec,setNumDec]=useState("")
+
+  const converteValor=()=>{
+    var allBinaryDigits=numBin.split('')
     
-    for (var i in vetorTotal) {
-      var vetorIndividual=vetorTotal[i]
-      
-      if(vetorIndividual!=='0' &&vetorIndividual!=='1' ){
+    for (var i in allBinaryDigits) {
+      var singleBinaryDigit=allBinaryDigits[i]
+
+      //Se o usuário digitar algo diferente de 1 ou 0
+      if(singleBinaryDigit!=='0' && singleBinaryDigit!=='1' ){
         window.alert(`Atenção! Há números ou letras não binárias`)
         break;
-        
+      
+      //Se for um número binário mesmo
       }else{
-        this.setState({numBin:valorTotalDigitado})
-        var convercao=parseInt(this.state.numBin,2)
-        this.setState({numDec:convercao})     
+        setNumDec(parseInt(numBin,2))  
       }
     }  
   }
   
-  render(){  
-    return(
-      <div>
-        <p>Digite até 8 caractéres</p>
-        <input maxLength="8" id="tese" onChange={this.pegaValor} />
-        <input type="button" value="Converter" onClick={this.converteValor}/>
-      <p>O número digitado {this.state.numBin}</p>
-      <p>se converte para {this.state.numDec}</p>
-      </div>        
-    )
-  }
+  return(
+    <div>
+      <h1>Digite até 8 caractéres</h1>
+      <div className="input-box">
+        <input className="input-binary" maxLength="8" onChange={(event)=>{setNumBin(event.target.value)}} />
+        <input className="input-button" type="button" value="Converter" onClick={converteValor}/>
+      </div>
+      
+    <h2 className="outputResult">Binário: {numBin}</h2>
+    {numDec===""?null:<h2 className="outputResult">Decimal: {numDec}</h2>}
+    
+    </div>        
+  )
 }
 export default App;
